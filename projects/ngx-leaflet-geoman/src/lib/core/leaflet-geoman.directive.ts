@@ -225,6 +225,10 @@ export class LeafletGeomanDirective implements OnInit {
 		this.geomanReady.emit(this.geomanInstance);
 	}
 
+	createControl() {
+		this.geomanInstance.addControls(this.controlOptions);
+	}
+
 	ngOnDestroy() {
 		this.leafletDirective.getMap().pm.removeControls();
 	}
