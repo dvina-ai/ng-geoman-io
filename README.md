@@ -73,9 +73,7 @@ imports: [
 
 ### Create and Configure a Map with the Geoman
 
-To create a map, use the `leaflet` attribute directive. This directive must appear first.
-You must specify an initial zoom/center and set of layers either via `leafletOptions` or by binding to `leafletZoom`, `leafletCenter`, and `leafletLayers`.
-Finally, add the `leafletDraw` attribute directive to add the leaflet draw control and configure it with `leafletDrawOptions`.
+To create a map, use the `leaflet` attribute directive in app. This directive must appear init before using `leafletGeoman` directive.
 
 ```html
 <div leafletGeoman [leafletGeomanOptions]="options" (leafletDrawStart)="onDrawStart($event)"></div>
