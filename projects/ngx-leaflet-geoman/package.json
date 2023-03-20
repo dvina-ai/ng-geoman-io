@@ -1,0 +1,21 @@
+{
+	"name": "@dvina/ngx-leaflet-geoman",
+	"description": "Angular.io components for the Leaflet Geoman.io plugin",
+	"version": "15.0.1",
+	"author": "Kant Yazılım A.Ş.",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/dvina-ai/ngx-leaflet-geoman.git"
+	},
+	"peerDependencies": {
+		"@angular/common": "15",
+		"@angular/core": "15",
+		"@asymmetrik/ngx-leaflet": "15",
+		"leaflet": "1",
+		"@geoman-io/leaflet-geoman-free": "~2.14"
+	},
+	"dependencies": {
+		"tslib": "^2.3.0"
+	}
+}
