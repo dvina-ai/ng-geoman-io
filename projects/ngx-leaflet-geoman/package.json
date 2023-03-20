@@ -1,7 +1,7 @@
 {
 	"name": "@dvina/ngx-leaflet-geoman",
-	"description": "Angular.io components for the Leaflet Geoman.io plugin",
-	"version": "15.0.3",
+	"description": "Angular components for the Leaflet geoman-io-free plugin",
+	"version": "15.0.4",
 	"author": "Kant Yazılım A.Ş.",
 	"license": "MIT",
 	"repository": {

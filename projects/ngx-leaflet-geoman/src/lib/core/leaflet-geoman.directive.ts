@@ -21,64 +21,64 @@ export class LeafletGeomanDirective implements OnInit {
 
 	geomanInstance: PM.PMMap;
 
-	@Input('leafletGeomanOptions') controlOptions: PM.ToolbarOptions = null;
+	@Input('gmOptions') controlOptions: PM.ToolbarOptions = null;
 
 	// Using 'any' here to avoid duplicating the DrawLocal interface with a bunch of optional properties
-	@Input('leafletGeomanLocal') geomanLocal: PM.Translations = null;
+	@Input('gmLocal') geomanLocal: PM.Translations = null;
 
 	// Configure callback function for the map
-	@Output('leafletGeomanReady') geomanReady = new EventEmitter<PM.PMMap>();
+	@Output('gmReady') geomanReady = new EventEmitter<PM.PMMap>();
 
 	// Draw Events
-	@Output('leafletGlobalDrawModeToggled') onGlobalDrawModeToggled =
+	@Output('gmGlobalDrawModeToggled') onGlobalDrawModeToggled =
 		new EventEmitter<GeomanEvents.GlobalDrawModeToggledEvent>();
-	@Output('leafletDrawStart') onDrawStart = new EventEmitter<GeomanEvents.DrawStartEvent>();
-	@Output('leafletDrawEnd') onDrawEnd = new EventEmitter<GeomanEvents.DrawEndEvent>();
-	@Output('leafletCreate') onCreate = new EventEmitter<GeomanEvents.CreateEvent>();
-	@Output('leafletVertexAdded') onVertexAdded = new EventEmitter<GeomanEvents.VertexAddedEvent>();
-	@Output('leafletSnap') onSnap = new EventEmitter<GeomanEvents.SnapEvent>();
-	@Output('leafletCenterPlaced') onCenterPlaced = new EventEmitter<GeomanEvents.CenterPlacedEvent>();
-	@Output('leafletEdit') onEdit = new EventEmitter<GeomanEvents.EditEvent>();
-	@Output('leafletUpdate') onUpdate = new EventEmitter<GeomanEvents.UpdateEvent>();
-	@Output('leafletEditEnable') onEditEnable = new EventEmitter<GeomanEvents.EditEnableEvent>();
-	@Output('leafletEditDisable') onEditDisable = new EventEmitter<GeomanEvents.EditDisableEvent>();
-	@Output('leafletVertexRemoved') onVertexRemoved = new EventEmitter<GeomanEvents.VertexRemovedEvent>();
-	@Output('leafletVertexClick') onVertexClick = new EventEmitter<GeomanEvents.VertexClickEvent>();
-	@Output('leafletMarkerDragStart') onMarkerDragStart = new EventEmitter<GeomanEvents.MarkerDragStartEvent>();
-	@Output('leafletMarkerDrag') onMarkerDrag = new EventEmitter<GeomanEvents.MarkerDragEvent>();
-	@Output('leafletMarkerDragEnd') onMarkerDragEnd = new EventEmitter<GeomanEvents.MarkerDragEndEvent>();
-	@Output('leafletLayerReset') onLayerReset = new EventEmitter<GeomanEvents.LayerResetEvent>();
-	@Output('leafletIntersect') onIntersect = new EventEmitter<GeomanEvents.IntersectEvent>();
-	@Output('leafletChange') onChange = new EventEmitter<GeomanEvents.ChangeEvent>();
-	@Output('leafletTextChange') onTextChange = new EventEmitter<GeomanEvents.TextChangeEvent>();
-	@Output('leafletTextFocus') onTextFocus = new EventEmitter<GeomanEvents.TextFocusEvent>();
-	@Output('leafletTextBlur') onTextBlur = new EventEmitter<GeomanEvents.TextBlurEvent>();
-	@Output('leafletGlobalEditModeToggled') onGlobalEditModeToggled =
+	@Output('gmDrawStart') onDrawStart = new EventEmitter<GeomanEvents.DrawStartEvent>();
+	@Output('gmDrawEnd') onDrawEnd = new EventEmitter<GeomanEvents.DrawEndEvent>();
+	@Output('gmCreate') onCreate = new EventEmitter<GeomanEvents.CreateEvent>();
+	@Output('gmVertexAdded') onVertexAdded = new EventEmitter<GeomanEvents.VertexAddedEvent>();
+	@Output('gmSnap') onSnap = new EventEmitter<GeomanEvents.SnapEvent>();
+	@Output('gmCenterPlaced') onCenterPlaced = new EventEmitter<GeomanEvents.CenterPlacedEvent>();
+	@Output('gmEdit') onEdit = new EventEmitter<GeomanEvents.EditEvent>();
+	@Output('gmUpdate') onUpdate = new EventEmitter<GeomanEvents.UpdateEvent>();
+	@Output('gmEditEnable') onEditEnable = new EventEmitter<GeomanEvents.EditEnableEvent>();
+	@Output('gmEditDisable') onEditDisable = new EventEmitter<GeomanEvents.EditDisableEvent>();
+	@Output('gmVertexRemoved') onVertexRemoved = new EventEmitter<GeomanEvents.VertexRemovedEvent>();
+	@Output('gmVertexClick') onVertexClick = new EventEmitter<GeomanEvents.VertexClickEvent>();
+	@Output('gmMarkerDragStart') onMarkerDragStart = new EventEmitter<GeomanEvents.MarkerDragStartEvent>();
+	@Output('gmMarkerDrag') onMarkerDrag = new EventEmitter<GeomanEvents.MarkerDragEvent>();
+	@Output('gmMarkerDragEnd') onMarkerDragEnd = new EventEmitter<GeomanEvents.MarkerDragEndEvent>();
+	@Output('gmLayerReset') onLayerReset = new EventEmitter<GeomanEvents.LayerResetEvent>();
+	@Output('gmIntersect') onIntersect = new EventEmitter<GeomanEvents.IntersectEvent>();
+	@Output('gmChange') onChange = new EventEmitter<GeomanEvents.ChangeEvent>();
+	@Output('gmTextChange') onTextChange = new EventEmitter<GeomanEvents.TextChangeEvent>();
+	@Output('gmTextFocus') onTextFocus = new EventEmitter<GeomanEvents.TextFocusEvent>();
+	@Output('gmTextBlur') onTextBlur = new EventEmitter<GeomanEvents.TextBlurEvent>();
+	@Output('gmGlobalEditModeToggled') onGlobalEditModeToggled =
 		new EventEmitter<GeomanEvents.GlobalEditModeToggledEvent>();
-	@Output('leafletGlobalDragModeToggled') onGlobalDragModeToggled =
+	@Output('gmGlobalDragModeToggled') onGlobalDragModeToggled =
 		new EventEmitter<GeomanEvents.GlobalDragModeToggledEvent>();
-	@Output('leafletDragStart') onDragStart = new EventEmitter<GeomanEvents.DragStartEvent>();
-	@Output('leafletDrag') onDrag = new EventEmitter<GeomanEvents.DragEvent>();
-	@Output('leafletDragEnd') onDragEnd = new EventEmitter<GeomanEvents.DragEndEvent>();
-	@Output('leafletDragEnable') onDragEnable = new EventEmitter<GeomanEvents.DragEnableEvent>();
-	@Output('leafletDragDisable') onDragDisable = new EventEmitter<GeomanEvents.DragDisableEvent>();
-	@Output('leafletRemove') onRemove = new EventEmitter<GeomanEvents.RemoveEvent>();
-	@Output('leafletGlobalRemovalModeToggled') onGlobalRemovalModeToggled =
+	@Output('gmDragStart') onDragStart = new EventEmitter<GeomanEvents.DragStartEvent>();
+	@Output('gmDrag') onDrag = new EventEmitter<GeomanEvents.DragEvent>();
+	@Output('gmDragEnd') onDragEnd = new EventEmitter<GeomanEvents.DragEndEvent>();
+	@Output('gmDragEnable') onDragEnable = new EventEmitter<GeomanEvents.DragEnableEvent>();
+	@Output('gmDragDisable') onDragDisable = new EventEmitter<GeomanEvents.DragDisableEvent>();
+	@Output('gmRemove') onRemove = new EventEmitter<GeomanEvents.RemoveEvent>();
+	@Output('gmGlobalRemovalModeToggled') onGlobalRemovalModeToggled =
 		new EventEmitter<GeomanEvents.GlobalRemovalModeToggledEvent>();
-	@Output('leafletGlobalCutModeToggled') onGlobalCutModeToggled =
+	@Output('gmGlobalCutModeToggled') onGlobalCutModeToggled =
 		new EventEmitter<GeomanEvents.GlobalCutModeToggledEvent>();
-	@Output('leafletCut') onCut = new EventEmitter<GeomanEvents.CutEvent>();
-	@Output('leafletRotateEnable') onRotateEnable = new EventEmitter<GeomanEvents.RotateEnableEvent>();
-	@Output('leafletRotateDisable') onRotateDisable = new EventEmitter<GeomanEvents.RotateDisableEvent>();
-	@Output('leafletRotateStart') onRotateStart = new EventEmitter<GeomanEvents.RotateStartEvent>();
-	@Output('leafletRotate') onRotate = new EventEmitter<GeomanEvents.RotateEvent>();
-	@Output('leafletRotateEnd') onRotateEnd = new EventEmitter<GeomanEvents.RotateEndEvent>();
-	@Output('leafletGlobalRotateModeToggled') onGlobalRotateModeToggled =
+	@Output('gmCut') onCut = new EventEmitter<GeomanEvents.CutEvent>();
+	@Output('gmRotateEnable') onRotateEnable = new EventEmitter<GeomanEvents.RotateEnableEvent>();
+	@Output('gmRotateDisable') onRotateDisable = new EventEmitter<GeomanEvents.RotateDisableEvent>();
+	@Output('gmRotateStart') onRotateStart = new EventEmitter<GeomanEvents.RotateStartEvent>();
+	@Output('gmRotate') onRotate = new EventEmitter<GeomanEvents.RotateEvent>();
+	@Output('gmRotateEnd') onRotateEnd = new EventEmitter<GeomanEvents.RotateEndEvent>();
+	@Output('gmGlobalRotateModeToggled') onGlobalRotateModeToggled =
 		new EventEmitter<GeomanEvents.GlobalRotateModeToggledEvent>();
-	@Output('leafletLangChange') onLangChange = new EventEmitter<GeomanEvents.LangChangeEvent>();
-	@Output('leafletButtonClick') onButtonClick = new EventEmitter<GeomanEvents.ButtonClickEvent>();
-	@Output('leafletActionClick') onActionClick = new EventEmitter<GeomanEvents.ActionClickEvent>();
-	@Output('leafletKeyboardKey') onKeyboardKey = new EventEmitter<GeomanEvents.KeyboardKeyEvent>();
+	@Output('gmLangChange') onLangChange = new EventEmitter<GeomanEvents.LangChangeEvent>();
+	@Output('gmButtonClick') onButtonClick = new EventEmitter<GeomanEvents.ButtonClickEvent>();
+	@Output('gmActionClick') onActionClick = new EventEmitter<GeomanEvents.ActionClickEvent>();
+	@Output('gmKeyboardKey') onKeyboardKey = new EventEmitter<GeomanEvents.KeyboardKeyEvent>();
 
 	constructor(leafletDirective: LeafletDirective, private zone: NgZone) {
 		this.leafletDirective = new LeafletDirectiveWrapper(leafletDirective);
