@@ -23,8 +23,9 @@ export class LeafletGeomanDirective implements OnInit {
 
 	@Input('gmOptions') controlOptions: PM.ToolbarOptions = null;
 
-	// Using 'any' here to avoid duplicating the DrawLocal interface with a bunch of optional properties
-	@Input('gmLocal') geomanLocal: PM.Translations = null;
+	// Configure the translation
+	@Input('gmTranslation') geomanTranslations: PM.Translations = null;
+	@Input('gmLocale') geomanLocal: PM.SupportLocales = 'en';
 
 	// Configure callback function for the map
 	@Output('gmReady') geomanReady = new EventEmitter<PM.PMMap>();
@@ -92,8 +93,11 @@ export class LeafletGeomanDirective implements OnInit {
 
 		this.geomanInstance = map.pm;
 
+		// Set Locale
+		this.geomanInstance.setLang(this.geomanLocal, this.geomanTranslations);
+
 		// Add the control to the map
-		// map.pm.addControls(this.controlOptions);
+		// this.geomanInstance.addControls(this.controlOptions);
 
 		map.on('pm:globaldrawmodetoggled', (e: GeomanEvents.GlobalDrawModeToggledEvent) =>
 			LeafletUtil.handleEvent(this.zone, this.onGlobalDrawModeToggled, e)
