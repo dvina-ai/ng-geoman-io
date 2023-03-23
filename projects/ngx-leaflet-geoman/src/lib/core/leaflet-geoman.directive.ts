@@ -106,64 +106,106 @@ export class LeafletGeomanDirective implements OnInit {
 		map.on('pm:drawstart', (e: GeomanEvents.DrawStartEvent) =>
 			LeafletUtil.handleEvent(this.zone, this.onDrawStart, e)
 		);
+
 		map.on('pm:drawend', (e: GeomanEvents.DrawEndEvent) => LeafletUtil.handleEvent(this.zone, this.onDrawEnd, e));
-		map.on('pm:create', (e: GeomanEvents.CreateEvent) => LeafletUtil.handleEvent(this.zone, this.onCreate, e));
 
-		map.on('pm:snap', (e: GeomanEvents.SnapEvent) => LeafletUtil.handleEvent(this.zone, this.onSnap, e));
-		map.on('pm:snapdrag', (e: GeomanEvents.SnapEvent) => LeafletUtil.handleEvent(this.zone, this.onSnap, e));
-		map.on('pm:unsnap', (e: GeomanEvents.SnapEvent) => LeafletUtil.handleEvent(this.zone, this.onSnap, e));
+		map.on('pm:create', (e: GeomanEvents.CreateEvent) => {
+			e.layer.on('pm:edit', (el: GeomanEvents.EditEvent) => LeafletUtil.handleEvent(this.zone, this.onEdit, el));
 
-		map.on('pm:centerplaced', (e: GeomanEvents.CenterPlacedEvent) =>
-			LeafletUtil.handleEvent(this.zone, this.onCenterPlaced, e)
-		);
+			e.layer.on('pm:update', (el: GeomanEvents.UpdateEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onUpdate, el)
+			);
 
-		map.on('pm:edit', (e: GeomanEvents.EditEvent) => LeafletUtil.handleEvent(this.zone, this.onEdit, e));
-		map.on('pm:update', (e: GeomanEvents.UpdateEvent) => LeafletUtil.handleEvent(this.zone, this.onUpdate, e));
+			e.layer.on('pm:enable', (el: GeomanEvents.EditEnableEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onEditEnable, el)
+			);
 
-		map.on('pm:enable', (e: GeomanEvents.EditEnableEvent) =>
-			LeafletUtil.handleEvent(this.zone, this.onEditEnable, e)
-		);
-		map.on('pm:disable', (e: GeomanEvents.EditDisableEvent) =>
-			LeafletUtil.handleEvent(this.zone, this.onEditDisable, e)
-		);
+			e.layer.on('pm:disable', (el: GeomanEvents.EditDisableEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onEditDisable, el)
+			);
 
-		map.on('pm:vertexadded', (e: GeomanEvents.VertexAddedEvent) =>
-			LeafletUtil.handleEvent(this.zone, this.onVertexAdded, e)
-		);
-		map.on('pm:vertexremoved', (e: GeomanEvents.VertexRemovedEvent) =>
-			LeafletUtil.handleEvent(this.zone, this.onVertexRemoved, e)
-		);
-		map.on('pm:vertexclick', (e: GeomanEvents.VertexClickEvent) =>
-			LeafletUtil.handleEvent(this.zone, this.onVertexClick, e)
-		);
+			e.layer.on('pm:vertexadded', (el: GeomanEvents.VertexAddedEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onVertexAdded, el)
+			);
 
-		map.on('pm:markerdragstart', (e: GeomanEvents.MarkerDragStartEvent) =>
-			LeafletUtil.handleEvent(this.zone, this.onMarkerDragStart, e)
-		);
-		map.on('pm:markerdrag', (e: GeomanEvents.MarkerDragEvent) =>
-			LeafletUtil.handleEvent(this.zone, this.onMarkerDrag, e)
-		);
-		map.on('pm:markerdragend', (e: GeomanEvents.MarkerDragEndEvent) =>
-			LeafletUtil.handleEvent(this.zone, this.onMarkerDragEnd, e)
-		);
+			e.layer.on('pm:vertexremoved', (el: GeomanEvents.VertexRemovedEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onVertexRemoved, el)
+			);
 
-		map.on('pm:layerreset', (e: GeomanEvents.LayerResetEvent) =>
-			LeafletUtil.handleEvent(this.zone, this.onLayerReset, e)
-		);
-		map.on('pm:intersect', (e: GeomanEvents.IntersectEvent) =>
-			LeafletUtil.handleEvent(this.zone, this.onIntersect, e)
-		);
-		map.on('pm:change', (e: GeomanEvents.ChangeEvent) => LeafletUtil.handleEvent(this.zone, this.onChange, e));
+			e.layer.on('pm:vertexclick', (el: GeomanEvents.VertexClickEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onVertexClick, el)
+			);
 
-		map.on('pm:textchange', (e: GeomanEvents.TextChangeEvent) =>
-			LeafletUtil.handleEvent(this.zone, this.onTextChange, e)
-		);
-		map.on('pm:textfocus', (e: GeomanEvents.TextFocusEvent) =>
-			LeafletUtil.handleEvent(this.zone, this.onTextFocus, e)
-		);
-		map.on('pm:textblur', (e: GeomanEvents.TextBlurEvent) =>
-			LeafletUtil.handleEvent(this.zone, this.onTextBlur, e)
-		);
+			e.layer.on('pm:markerdragstart', (el: GeomanEvents.MarkerDragStartEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onMarkerDragStart, el)
+			);
+
+			e.layer.on('pm:markerdrag', (el: GeomanEvents.MarkerDragEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onMarkerDrag, el)
+			);
+
+			e.layer.on('pm:markerdragend', (el: GeomanEvents.MarkerDragEndEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onMarkerDragEnd, el)
+			);
+
+			e.layer.on('pm:layerreset', (el: GeomanEvents.LayerResetEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onLayerReset, el)
+			);
+
+			e.layer.on('pm:snap', (el: GeomanEvents.SnapEvent) => LeafletUtil.handleEvent(this.zone, this.onSnap, el));
+
+			e.layer.on('pm:snapdrag', (el: GeomanEvents.SnapEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onSnap, el)
+			);
+
+			e.layer.on('pm:unsnap', (el: GeomanEvents.SnapEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onSnap, el)
+			);
+
+			e.layer.on('pm:intersect', (el: GeomanEvents.IntersectEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onIntersect, el)
+			);
+
+			e.layer.on('pm:change', (el: GeomanEvents.ChangeEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onChange, el)
+			);
+
+			e.layer.on('pm:centerplaced', (el: GeomanEvents.CenterPlacedEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onCenterPlaced, el)
+			);
+
+			e.layer.on('pm:dragstart', (el: GeomanEvents.DragStartEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onDragStart, el)
+			);
+
+			e.layer.on('pm:drag', (el: GeomanEvents.DragEvent) => LeafletUtil.handleEvent(this.zone, this.onDrag, el));
+
+			e.layer.on('pm:dragend', (el: GeomanEvents.DragEndEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onDragEnd, el)
+			);
+
+			e.layer.on('pm:dragenable', (el: GeomanEvents.DragEnableEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onDragEnable, el)
+			);
+
+			e.layer.on('pm:dragdisable', (el: GeomanEvents.DragDisableEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onDragDisable, el)
+			);
+
+			e.layer.on('pm:textchange', (el: GeomanEvents.TextChangeEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onTextChange, el)
+			);
+
+			e.layer.on('pm:textfocus', (el: GeomanEvents.TextFocusEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onTextFocus, el)
+			);
+
+			e.layer.on('pm:textblur', (el: GeomanEvents.TextBlurEvent) =>
+				LeafletUtil.handleEvent(this.zone, this.onTextBlur, el)
+			);
+
+			LeafletUtil.handleEvent(this.zone, this.onCreate, e);
+		});
 
 		map.on('pm:globaleditmodetoggled', (e: GeomanEvents.GlobalEditModeToggledEvent) =>
 			LeafletUtil.handleEvent(this.zone, this.onGlobalEditModeToggled, e)
@@ -171,17 +213,6 @@ export class LeafletGeomanDirective implements OnInit {
 
 		map.on('pm:globaldragmodetoggled', (e: GeomanEvents.GlobalDragModeToggledEvent) =>
 			LeafletUtil.handleEvent(this.zone, this.onGlobalDragModeToggled, e)
-		);
-		map.on('pm:dragstart', (e: GeomanEvents.DragStartEvent) =>
-			LeafletUtil.handleEvent(this.zone, this.onDragStart, e)
-		);
-		map.on('pm:drag', (e: GeomanEvents.DragEvent) => LeafletUtil.handleEvent(this.zone, this.onDrag, e));
-		map.on('pm:dragend', (e: GeomanEvents.DragEndEvent) => LeafletUtil.handleEvent(this.zone, this.onDragEnd, e));
-		map.on('pm:dragenable', (e: GeomanEvents.DragEnableEvent) =>
-			LeafletUtil.handleEvent(this.zone, this.onDragEnable, e)
-		);
-		map.on('pm:dragdisable', (e: GeomanEvents.DragDisableEvent) =>
-			LeafletUtil.handleEvent(this.zone, this.onDragDisable, e)
 		);
 
 		map.on('pm:globalremovalmodetoggled', (e: GeomanEvents.GlobalRemovalModeToggledEvent) =>
