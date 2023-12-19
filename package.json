@@ -20,7 +20,7 @@
 		"@angular/platform-browser-dynamic": "^17.0",
 		"@angular/router": "^17.0",
 		"@asymmetrik/ngx-leaflet": "17",
-		"@geoman-io/leaflet-geoman-free": "~2.14",
+		"@geoman-io/leaflet-geoman-free": "~2.15",
 		"eslint-plugin-header": "^3.1.1",
 		"copyfiles": "^2.4.1",
 		"leaflet": "1",

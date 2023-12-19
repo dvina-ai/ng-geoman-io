@@ -1,7 +1,7 @@
 {
 	"name": "@dvina/ngx-leaflet-geoman",
 	"description": "Angular components for the Leaflet geoman-io-free plugin",
-	"version": "17.0.0",
+	"version": "17.0.1",
 	"author": "Kant Yazılım A.Ş.",
 	"license": "MIT",
 	"repository": {
@@ -13,7 +13,7 @@
 		"@angular/core": "17",
 		"@asymmetrik/ngx-leaflet": "17",
 		"leaflet": "1",
-		"@geoman-io/leaflet-geoman-free": "~2.14"
+		"@geoman-io/leaflet-geoman-free": "~2.15"
 	},
 	"dependencies": {
 		"tslib": "^2.4.0"
